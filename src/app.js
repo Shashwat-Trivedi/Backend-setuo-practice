@@ -26,4 +26,14 @@ app.use(express.static("public")); // for handling data stored locally like imag
 app.use(cookieParser());
 
 
+// routes import
+
+import userRouter from "./routes/user.routes.js"
+
+// routes Decleration
+
+app.use("/api/v1/users", userRouter)
+
+
+
 export { app };

@@ -49,7 +49,7 @@ const userSchema = new Schema(
             required: true,
         },
 
-        refreshtoken: {
+        refreshToken: {
             type: String,
         }
 
@@ -59,13 +59,13 @@ const userSchema = new Schema(
 )
 
 userSchema.pre('save', async function (next) {
-    if (!this.ismodified('password')) return next();
-    this.password = bcrypt.hash(this.password, 10)
+    if (!this.isModified('password')) return next();
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
 userSchema.methods.ispasswordcorrect = async function (password) {
-    bcrypt.compare(password , this.password)
+  return await  bcrypt.compare(password , this.password)
 }
 
 userSchema.methods.generateAccessToken = async function () {
@@ -95,4 +95,4 @@ userSchema.methods.generateRefreshToken = async function () {
    )
 }
 
-export const User = mongoose.model("User" , userSchema)
+export const User = mongoose.model("User" , userSchema) //users
